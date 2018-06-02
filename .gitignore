@@ -1,0 +1,8 @@
+.tox/
+archives/
+jenkins.ini
+
+# Packer
+.galaxy/
+*.retry
+cloud-env.json

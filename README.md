@@ -1,2 +1,3 @@
 # ci-management
-Jenkins job configuration
+
+This repo contains configuration files for Jenkins jobs for the Motion Picture Software Foundation project.
