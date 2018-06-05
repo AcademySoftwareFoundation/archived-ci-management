@@ -1,0 +1,34 @@
+[Documentation]
+bears = WriteGoodLintBear
+files = *.md
+allow_so_beginning = False
+allow_there_is = False
+allow_cliche_phrases = False
+
+[GitCommit]
+bears = GitCommitBear
+ignore_length_regex = Signed-off-by,
+    Also-by,
+    Co-authored-by,
+    http://,
+    https://
+
+[JSON]
+bears = JSONFormatBear
+files = packer/**.json
+indent_size = 2
+
+[ShellCheck]
+bears = ShellCheckBear,
+    SpaceConsistencyBear
+files = jjb/**.sh,
+    packer/**.sh
+shell = bash
+indent_size = 4
+use_spaces = yeah
+
+[YAML]
+bears = YAMLLintBear
+files = jjb/**/*.yaml
+document_start = True
+yamllint_config = .yamllint.conf
