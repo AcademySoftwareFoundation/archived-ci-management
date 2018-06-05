@@ -1,0 +1,15 @@
+- defaults:
+    name: global
+
+    git-url: https://github.com
+    git-clone-url: 'git@github.com:'
+    github-org: MotionPictureSoftwareFoundation
+    github_pr_whitelist:
+      - tykeal
+      - zxiiro
+    github_pr_admin_list:
+      - tykeal
+      - zxiiro
+
+    jenkins-ssh-credential: jenkins
+    lftools-version: '<1.0.0'

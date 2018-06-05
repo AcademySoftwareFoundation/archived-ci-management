@@ -1,0 +1,10 @@
+
+- project:
+    name: ci-jobs
+
+    jobs:
+      - '{project-name}-github-ci-jobs'
+
+    project: ci-management
+    project-name: ci-management
+    build-node: centos7-builder-2c-1g
