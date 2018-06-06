@@ -11,5 +11,5 @@
       - tykeal
       - zxiiro
 
-    jenkins-ssh-credential: jenkins
+    jenkins-ssh-credential: jenkins-ssh
     lftools-version: '<1.0.0'
