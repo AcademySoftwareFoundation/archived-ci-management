@@ -1,5 +1,14 @@
 ---
 - project:
+    name: packer-verify
+    jobs:
+      - github-packer-verify
+
+    project: ci-management
+    project-name: ci-management
+    build-node: centos7-builder-2c-1g
+
+- project:
     name: packer-builder-jobs
     jobs:
       - github-packer-merge
