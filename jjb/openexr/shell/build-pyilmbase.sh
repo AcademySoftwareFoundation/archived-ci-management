@@ -22,9 +22,18 @@
 # SOFTWARE.
 ##############################################################################
 
-cd PyIlmBase
+PREFIX="$WORKSPACE/_build/pyilmbase"
+
+set -eux -o pipefail
+
+cd PyIlmBase || exit
 ./bootstrap
-./configure
+./configure --prefix="$PREFIX"
 make
-sudo make install
+make install
+
+mkdir -p "$WORKSPACE/dist"
+tar -cJvf "$WORKSPACE/dist/pyilmbase.tar.xz" -C "$PREFIX" .
+
+sudo tar -xvf "$WORKSPACE/dist/pyilmbase.tar.xz" -C "/usr/local"
 sudo ldconfig

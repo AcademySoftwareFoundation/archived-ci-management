@@ -22,9 +22,18 @@
 # SOFTWARE.
 ##############################################################################
 
-cd IlmBase
+PREFIX="$WORKSPACE/_build/ilmbase"
+
+set -eux -o pipefail
+
+cd IlmBase || exit
 ./bootstrap
-./configure
+./configure --prefix="$PREFIX"
 make
-sudo make install
+make install
+
+mkdir -p "$WORKSPACE/dist"
+tar -cJvf "$WORKSPACE/dist/ilmbase.tar.xz" -C "$PREFIX" .
+
+sudo tar -xvf "$WORKSPACE/dist/ilmbase.tar.xz" -C "/usr/local"
 sudo ldconfig
