@@ -22,9 +22,18 @@
 # SOFTWARE.
 ##############################################################################
 
-cd OpenEXR
+PREFIX="$WORKSPACE/_build/openexr"
+
+set -eux -o pipefail
+
+cd OpenEXR || exit
 ./bootstrap
-./configure
+./configure --prefix="$PREFIX"
 make
-sudo make install
+make install
+
+mkdir -p "$WORKSPACE/dist"
+tar -cJvf "$WORKSPACE/dist/openexr.tar.xz" -C "$PREFIX" .
+
+sudo tar -xvf "$WORKSPACE/dist/openexr.tar.xz" -C "/usr/local"
 sudo ldconfig

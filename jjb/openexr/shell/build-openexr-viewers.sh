@@ -22,9 +22,18 @@
 # SOFTWARE.
 ##############################################################################
 
-cd OpenEXR_Viewers
+PREFIX="$WORKSPACE/_build/openexr_viewers"
+
+set -eux -o pipefail
+
+cd OpenEXR_Viewers || exit
 ./bootstrap
-./configure
+./configure --prefix="$PREFIX"
 make
-sudo make install
+make install
+
+mkdir -p "$WORKSPACE/dist"
+tar -cJvf "$WORKSPACE/dist/openexr_viewers.tar.xz" -C "$PREFIX" .
+
+sudo tar -xvf "$WORKSPACE/dist/openexr_viewers.tar.xz" -C "/usr/local"
 sudo ldconfig
