@@ -24,6 +24,11 @@
 
 PREFIX="$WORKSPACE/_build/pyilmbase"
 
+virtualenv /tmp/v/numpy
+# shellcheck source=/tmp/v/tox/bin/activate disable=SC1091
+source "/tmp/v/numpy/bin/activate"
+pip install numpy~=1.14.5
+
 set -eux -o pipefail
 
 cd PyIlmBase || exit

@@ -132,7 +132,7 @@
       - lf-infra-create-netrc:
           server-id: staging
       - shell: !include-raw-escape: shell/build-ilmbase.sh
-      #- shell: !include-raw-escape: shell/build-pyilmbase.sh
+      - shell: !include-raw-escape: shell/build-pyilmbase.sh
       - shell: !include-raw-escape: shell/build-openexr.sh
       - shell: !include-raw-escape: shell/build-openexr-viewers.sh
       - shell: !include-raw-escape: shell/stage-release.sh

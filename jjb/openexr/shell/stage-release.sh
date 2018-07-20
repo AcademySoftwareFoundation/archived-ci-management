@@ -43,12 +43,12 @@ lftools deploy file "$NEXUS_URL" "$repo_id" \
     tar.xz \
     "$WORKSPACE/dist/ilmbase.tar.xz"
 
-# lftools deploy file "$NEXUS_URL" "$repo_id" \
-#     io.aswf.openexr \
-#     pyilmbase \
-#     "$pyilmbase_version" \
-#     tar.xz \
-#     "$WORKSPACE/dist/pyilmbase.tar.xz"
+lftools deploy file "$NEXUS_URL" "$repo_id" \
+    io.aswf.openexr \
+    pyilmbase \
+    "$pyilmbase_version" \
+    tar.xz \
+    "$WORKSPACE/dist/pyilmbase.tar.xz"
 
 lftools deploy file "$NEXUS_URL" "$repo_id" \
     io.aswf.openexr \
