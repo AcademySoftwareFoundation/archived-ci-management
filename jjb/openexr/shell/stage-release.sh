@@ -23,6 +23,7 @@
 ##############################################################################
 
 STAGING_PROFILE_ID="108c57f6f68863"
+CLASSIFIER="linux-amd64"
 
 # shellcheck source=/tmp/v/lftools/bin/activate disable=SC1091
 source "/tmp/v/lftools/bin/activate"
@@ -36,28 +37,28 @@ openexr_viewers_version="$(grep AC_INIT ./OpenEXR_Viewers/configure.ac | awk -F'
 
 repo_id=$(lftools deploy nexus-stage-repo-create "$NEXUS_URL" "$STAGING_PROFILE_ID")
 
-lftools deploy file "$NEXUS_URL" "$repo_id" \
+lftools deploy file -c "$CLASSIFIER" "$NEXUS_URL" "$repo_id" \
     io.aswf.openexr \
     ilmbase \
     "$ilmbase_version" \
     tar.xz \
     "$WORKSPACE/dist/ilmbase.tar.xz"
 
-lftools deploy file "$NEXUS_URL" "$repo_id" \
+lftools deploy file -c "$CLASSIFIER" "$NEXUS_URL" "$repo_id" \
     io.aswf.openexr \
     pyilmbase \
     "$pyilmbase_version" \
     tar.xz \
     "$WORKSPACE/dist/pyilmbase.tar.xz"
 
-lftools deploy file "$NEXUS_URL" "$repo_id" \
+lftools deploy file -c "$CLASSIFIER" "$NEXUS_URL" "$repo_id" \
     io.aswf.openexr \
     openexr \
     "$openexr_version" \
     tar.xz \
     "$WORKSPACE/dist/openexr.tar.xz"
 
-lftools deploy file "$NEXUS_URL" "$repo_id" \
+lftools deploy file -c "$CLASSIFIER" "$NEXUS_URL" "$repo_id" \
     io.aswf.openexr \
     openexr_viewers \
     "$openexr_viewers_version" \
