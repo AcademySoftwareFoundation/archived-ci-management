@@ -1,16 +1,20 @@
 ---
 - import_playbook: ../common-packer/provision/baseline.yaml
 
-tasks:
-  - name: Install OpenVDB required packages
-    apt:
-      name:
-        - libblosc-dev
-        - libboost-iostreams-dev
-        - libboost-system-dev
-        - libboost-thread-dev
-        - libbtbb-dev
-        - libglfw3-dev
-      state: present
-    when: ansible_distribution == 'Debian'
-    become: true
+- hosts: all
+  become_user: root
+  become_method: sudo
+
+  tasks:
+    - name: Install OpenVDB required packages
+      apt:
+        name:
+          - libblosc-dev
+          - libboost-iostreams-dev
+          - libboost-system-dev
+          - libboost-thread-dev
+          - libbtbb-dev
+          - libglfw3-dev
+        state: present
+      when: ansible_distribution == 'Debian'
+      become: true
