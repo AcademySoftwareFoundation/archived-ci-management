@@ -8,7 +8,7 @@
     stream: master
     branch: master
     project: openexr
-    build-node: ubuntu1604-builder-2c-1g
+    build-node: ubuntu1604-builder-4c-4g
 
 - job-template:
     name: 'openexr-verify-{stream}'
