@@ -13,8 +13,8 @@
           - libboost-iostreams-dev
           - libboost-system-dev
           - libboost-thread-dev
-          - libbtbb-dev
           - libglfw3-dev
+          - libtbb-dev
         state: present
       when: ansible_os_family == 'Debian'
       become: true
