@@ -54,9 +54,9 @@
 
     triggers:
       - github-pull-request:
-          trigger-phrase: '^recheck$'
+          trigger-phrase: ^(recheck|reverify)$
           only-trigger-phrase: false
-          status-context: 'OpenEXR Verify'
+          status-context: 'Verify'
           permit-all: true
           github-hooks: true
           auto-close-on-fail: false
