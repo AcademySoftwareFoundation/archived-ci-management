@@ -1,0 +1,20 @@
+---
+- view-template:
+    id: 'common-view'
+    name: '{project-name}'
+    view-type: list
+    filter-executors: false
+    filter-queue: false
+    columns:
+      - status
+      - weather
+      - job
+      - last-success
+      - last-failure
+      - last-duration
+      - build-button
+      - jacoco
+      - find-bugs
+      - robot-list
+    recurse: false
+    regex: '^{project-name}-.*'

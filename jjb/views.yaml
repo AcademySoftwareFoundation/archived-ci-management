@@ -1,0 +1,30 @@
+---
+- view:
+    name: '00-Empty View'
+    description: >
+      Empty job view. This is used as the default landing view to keep the
+      Jenkins UI responding better while a) under high load and b) when there
+      are a lot of jobs defined in the system'
+    view-type: list
+    filter-executors: false
+    filter-queue: false
+    recurse: false
+    regex: ''
+
+- view:
+    name: CLM
+    description: 'List of CLM jobs'
+    view-type: list
+    filter-executors: false
+    filter-queue: false
+    columns:
+      - status
+      - weather
+      - job
+      - last-success
+      - last-failure
+      - last-duration
+      - build-button
+      - policy-violations
+    recurse: false
+    regex: '.*-clm-.*'

@@ -27,3 +27,10 @@
         wget https://nexus.aswf.io/service/local/repositories/openexr-1019/content/io/aswf/openexr/openexr/2.2.0/openexr-2.2.0-linux-amd64.tar.xz
         sudo tar -xvf ilmbase-2.2.0-linux-amd64.tar.xz -C /usr/local
         sudo tar -xvf openexr-2.2.0-linux-amd64.tar.xz -C /usr/local
+
+- project:
+    name: openvdb-views
+    views:
+      - common-view
+
+    project-name: openvdb

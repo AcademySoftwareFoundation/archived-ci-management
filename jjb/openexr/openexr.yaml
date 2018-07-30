@@ -140,3 +140,10 @@
 
     publishers:
       - lf-infra-publish
+
+- project:
+    name: openexr-views
+    views:
+      - common-view
+
+    project-name: openexr
