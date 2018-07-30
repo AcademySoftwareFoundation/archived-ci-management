@@ -1,0 +1,29 @@
+---
+- project:
+    name: openvdb
+    jobs:
+      - 'github-cmake-verify'
+
+    stream: master
+    branch: master
+    project: openvdb
+    project-name: openvdb
+    build-node: ubuntu1604-builder-8c-8g
+
+    cmake-opts: >
+        -D CMAKE_CXX_FLAGS="-fPIC -std=gnu++11"
+        -D USE_GLFW3=ON
+        -D ILMBASE_NAMESPACE_VERSIONING=OFF
+        -D OPENEXR_NAMESPACE_VERSIONING=OFF
+    make-opts: '-j8'
+    pre-build: |
+        #!/bin/bash
+        git remote add zxiiro https://github.com/zxiiro/openvdb.git
+        git fetch zxiiro
+        git cherry-pick zxiiro/paths
+        git cherry-pick zxiiro/tbb-suffix
+        git cherry-pick zxiiro/glfw3-suffix
+        wget https://nexus.aswf.io/service/local/repositories/openexr-1019/content/io/aswf/openexr/ilmbase/2.2.0/ilmbase-2.2.0-linux-amd64.tar.xz
+        wget https://nexus.aswf.io/service/local/repositories/openexr-1019/content/io/aswf/openexr/openexr/2.2.0/openexr-2.2.0-linux-amd64.tar.xz
+        sudo tar -xvf ilmbase-2.2.0-linux-amd64.tar.xz -C /usr/local
+        sudo tar -xvf openexr-2.2.0-linux-amd64.tar.xz -C /usr/local
