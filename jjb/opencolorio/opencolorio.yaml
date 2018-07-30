@@ -13,6 +13,13 @@
 
     make-opts: '-j8'
 
+- project:
+    name: opencolorio-views
+    views:
+      - common-view
+
+    project-name: opencolorio
+
 - job-template:
     name: 'opencolorio-cmake-stage-{stream}'
     id: opencolorio-cmake-stage
