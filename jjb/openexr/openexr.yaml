@@ -2,24 +2,32 @@
 - project:
     name: openexr-master
     jobs:
+      - 'github-cmake-verify'
       - 'openexr-stage-{stream}'
       - 'openexr-verify-{stream}'
 
     stream: master
     branch: master
     project: openexr
+    project-name: openexr
     build-node: ubuntu1604-builder-4c-4g
+
+    make-opts: '-j8'
 
 - project:
     name: openexr-develop
     jobs:
+      - 'github-cmake-verify'
       - 'openexr-stage-{stream}'
       - 'openexr-verify-{stream}'
 
     stream: develop
     branch: develop
     project: openexr
+    project-name: openexr
     build-node: ubuntu1604-builder-4c-4g
+
+    make-opts: '-j8'
 
 - job-template:
     name: 'openexr-verify-{stream}'
