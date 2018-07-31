@@ -66,3 +66,7 @@ lftools deploy file -c "$CLASSIFIER" "$NEXUS_URL" "$repo_id" \
     "$WORKSPACE/dist/openexr_viewers.tar.xz"
 
 lftools deploy nexus-stage-repo-close "$NEXUS_URL" "$STAGING_PROFILE_ID" "$repo_id"
+
+PATCH_DIR="$WORKSPACE/archives/patches"
+mkdir -p "$PATCH_DIR"
+echo "openexr" "$(git rev-parse --verify HEAD)" | tee -a "$PATCH_DIR/taglist.log"
