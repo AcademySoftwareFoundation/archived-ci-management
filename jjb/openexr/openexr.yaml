@@ -1,12 +1,23 @@
 ---
 - project:
-    name: openexr
+    name: openexr-master
     jobs:
       - 'openexr-stage-{stream}'
       - 'openexr-verify-{stream}'
 
     stream: master
     branch: master
+    project: openexr
+    build-node: ubuntu1604-builder-4c-4g
+
+- project:
+    name: openexr-develop
+    jobs:
+      - 'openexr-stage-{stream}'
+      - 'openexr-verify-{stream}'
+
+    stream: develop
+    branch: develop
     project: openexr
     build-node: ubuntu1604-builder-4c-4g
 
