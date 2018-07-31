@@ -9,3 +9,10 @@
     project-name: ci-management
     build-node: centos7-builder-2c-1g
     jjb-version: 2.0.10
+
+- project:
+    name: ci-views
+    views:
+      - common-view
+
+    project-name: ci-management
