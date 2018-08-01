@@ -34,7 +34,7 @@ set -eux -o pipefail
 cd PyIlmBase || exit
 ./bootstrap
 ./configure --prefix="$PREFIX"
-make
+make -j8
 make install
 
 mkdir -p "$WORKSPACE/dist"

@@ -29,7 +29,7 @@ set -eux -o pipefail
 cd OpenEXR || exit
 ./bootstrap
 ./configure --prefix="$PREFIX"
-make
+make -j8
 make install
 
 mkdir -p "$WORKSPACE/dist"
