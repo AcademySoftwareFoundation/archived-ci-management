@@ -79,6 +79,8 @@
           permit-all: true
           github-hooks: true
           auto-close-on-fail: false
+          white-list-target-branches:
+            - '{branch}'
 
     wrappers:
       - lf-infra-wrappers:
