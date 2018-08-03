@@ -29,7 +29,13 @@ set -eux -o pipefail
 cd OpenEXR || exit
 ./bootstrap
 ./configure --prefix="$PREFIX"
-make
+OS=`uname`
+if [[ "$OS" == "Linux" ]]; then
+  NPROC=`cat /proc/cpuinfo|grep processor|wc -l`
+else
+  NPROC=1
+fi
+make -j${NPROC}
 make install
 
 mkdir -p "$WORKSPACE/dist"
