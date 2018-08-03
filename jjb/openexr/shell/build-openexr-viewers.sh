@@ -29,9 +29,9 @@ set -eux -o pipefail
 cd OpenEXR_Viewers || exit
 ./bootstrap
 ./configure --prefix="$PREFIX"
-OS=`uname`
+OS=$(uname)
 if [[ "$OS" == "Linux" ]]; then
-  NPROC=`cat /proc/cpuinfo|grep processor|wc -l`
+  NPROC=$(cat /proc/cpuinfo|grep processor|wc -l)
 else
   NPROC=1
 fi
