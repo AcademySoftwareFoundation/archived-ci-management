@@ -1,9 +1,10 @@
-
+---
 - project:
     name: ci-jobs
 
     jobs:
       - '{project-name}-github-ci-jobs'
+      - github-tox-verify
 
     project: ci-management
     project-name: ci-management

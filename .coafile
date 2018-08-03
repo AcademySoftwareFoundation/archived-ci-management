@@ -16,6 +16,7 @@ ignore_length_regex = Signed-off-by,
 [JSON]
 bears = JSONFormatBear
 files = packer/**.json
+ignore = packer/common-packer/**
 indent_size = 2
 
 [ShellCheck]
