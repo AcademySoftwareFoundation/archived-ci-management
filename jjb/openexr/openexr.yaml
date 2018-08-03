@@ -88,10 +88,10 @@
           jenkins-ssh-credential: '{jenkins-ssh-credential}'
 
     builders:
-      - shell: !include-raw: shell/build-ilmbase.sh
-      - shell: !include-raw: shell/build-pyilmbase.sh
-      - shell: !include-raw: shell/build-openexr.sh
-      - shell: !include-raw: shell/build-openexr-viewers.sh
+      - shell: !include-raw-escape: shell/build-ilmbase.sh
+      - shell: !include-raw-escape: shell/build-pyilmbase.sh
+      - shell: !include-raw-escape: shell/build-openexr.sh
+      - shell: !include-raw-escape: shell/build-openexr-viewers.sh
 
     publishers:
       - lf-infra-publish
