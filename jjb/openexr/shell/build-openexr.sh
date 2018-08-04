@@ -35,8 +35,11 @@ if [[ "$OS" == "Linux" ]]; then
 else
   NPROC=1
 fi
-make -j${NPROC}
-make install
+make -j${NPROC} || exit 1
+echo "Running tests..."
+make -j${NPROC} check || exit 1
+echo "Installing..."
+make install || exit 1
 
 mkdir -p "$WORKSPACE/dist"
 tar -cJvf "$WORKSPACE/dist/openexr.tar.xz" -C "$PREFIX" .
