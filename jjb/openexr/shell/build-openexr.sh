@@ -29,8 +29,17 @@ set -eux -o pipefail
 cd OpenEXR || exit
 ./bootstrap
 ./configure --prefix="$PREFIX"
-make
-make install
+OS=$(uname)
+if [[ "$OS" == "Linux" ]]; then
+  NPROC=$(cat /proc/cpuinfo|grep processor|wc -l)
+else
+  NPROC=1
+fi
+make -j${NPROC} || exit 1
+echo "Running tests..."
+make -j${NPROC} check || exit 1
+echo "Installing..."
+make install || exit 1
 
 mkdir -p "$WORKSPACE/dist"
 tar -cJvf "$WORKSPACE/dist/openexr.tar.xz" -C "$PREFIX" .
