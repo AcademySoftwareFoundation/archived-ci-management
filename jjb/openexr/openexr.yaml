@@ -10,9 +10,9 @@
     branch: master
     project: openexr
     project-name: openexr
-    build-node: ubuntu1604-builder-4c-4g
+    build-node: ubuntu1604-builder-4c-16g
 
-    make-opts: '-j8'
+    make-opts: '-j4'
 
 - project:
     name: openexr-develop
@@ -27,7 +27,7 @@
     project-name: openexr
     build-node: ubuntu1604-builder-4c-4g
 
-    make-opts: '-j8'
+    make-opts: '-j4'
 
 - job-template:
     name: 'openexr-verify-{stream}'
