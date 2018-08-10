@@ -25,7 +25,7 @@
     branch: develop
     project: openexr
     project-name: openexr
-    build-node: ubuntu1604-builder-4c-4g
+    build-node: ubuntu1604-builder-4c-16g
 
     make-opts: '-j4'
 
