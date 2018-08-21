@@ -30,6 +30,35 @@ source "/tmp/v/lftools/bin/activate"
 
 set -eux -o pipefail
 
+deploy_artifact() {
+    local repo_id="$1"
+    local artifact="$2"
+    local version="$3"
+
+    if [ -z "$3" ]; then
+        echo "ERROR: deploy_artifact missing parameter."
+        echo "Usage: deploy_artifact <artifact> <version>"
+    fi
+
+    # Create src tar
+    git config tar.tar.xz.command "xz -c"
+    git archive --format=tar.xz HEAD > src.tar.xz
+
+    lftools deploy file -c "sources" "$NEXUS_URL" "$repo_id" \
+        io.aswf.openexr \
+        "$artifact" \
+        "$version" \
+        tar.xz \
+        src.tar.xz
+
+    lftools deploy file -c "$CLASSIFIER" "$NEXUS_URL" "$repo_id" \
+        io.aswf.openexr \
+        "$artifact" \
+        "$version" \
+        tar.xz \
+        "$WORKSPACE/dist/${artifact}.tar.xz"
+}
+
 ilmbase_version="$(grep AC_INIT ./IlmBase/configure.ac | awk -F', ' '{print $NF}' | awk -F')' '{print $1}')"
 pyilmbase_version="$(grep AC_INIT ./PyIlmBase/configure.ac | awk -F', ' '{print $NF}' | awk -F')' '{print $1}')"
 openexr_version="$(grep AC_INIT ./OpenEXR/configure.ac | awk -F', ' '{print $NF}' | awk -F')' '{print $1}')"
@@ -37,33 +66,10 @@ openexr_viewers_version="$(grep AC_INIT ./OpenEXR_Viewers/configure.ac | awk -F'
 
 repo_id=$(lftools deploy nexus-stage-repo-create "$NEXUS_URL" "$STAGING_PROFILE_ID")
 
-lftools deploy file -c "$CLASSIFIER" "$NEXUS_URL" "$repo_id" \
-    io.aswf.openexr \
-    ilmbase \
-    "$ilmbase_version" \
-    tar.xz \
-    "$WORKSPACE/dist/ilmbase.tar.xz"
-
-lftools deploy file -c "$CLASSIFIER" "$NEXUS_URL" "$repo_id" \
-    io.aswf.openexr \
-    pyilmbase \
-    "$pyilmbase_version" \
-    tar.xz \
-    "$WORKSPACE/dist/pyilmbase.tar.xz"
-
-lftools deploy file -c "$CLASSIFIER" "$NEXUS_URL" "$repo_id" \
-    io.aswf.openexr \
-    openexr \
-    "$openexr_version" \
-    tar.xz \
-    "$WORKSPACE/dist/openexr.tar.xz"
-
-lftools deploy file -c "$CLASSIFIER" "$NEXUS_URL" "$repo_id" \
-    io.aswf.openexr \
-    openexr_viewers \
-    "$openexr_viewers_version" \
-    tar.xz \
-    "$WORKSPACE/dist/openexr_viewers.tar.xz"
+deploy_artifact "$repo_id" ilmbase "$ilmbase_version"
+deploy_artifact "$repo_id" pyilmbase "$pyilmbase_version"
+deploy_artifact "$repo_id" openexr "$openexr_version"
+deploy_artifact "$repo_id" openexr_viewers "$openexr_viewers_version"
 
 lftools deploy nexus-stage-repo-close "$NEXUS_URL" "$STAGING_PROFILE_ID" "$repo_id"
 
