@@ -56,6 +56,7 @@
     pre-build: ''
     stream: master
     submodule-recursive: true
+    submodule-timeout: 10
 
     # github_included_regions MUST match gerrit_trigger_file_paths
     github_included_regions:
@@ -93,6 +94,7 @@
           refspec: '+refs/pull/*:refs/remotes/origin/pr/*'
           branch: '$sha1'
           submodule-recursive: '{submodule-recursive}'
+          submodule-timeout: '{submodule-timeout}'
           choosing-strategy: default
           jenkins-ssh-credential: '{jenkins-ssh-credential}'
 
