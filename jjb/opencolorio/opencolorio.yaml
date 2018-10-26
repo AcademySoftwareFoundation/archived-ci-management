@@ -9,7 +9,7 @@
     branch: master
     project: opencolorio
     project-name: opencolorio
-    build-node: ubuntu1604-builder-2c-1g
+    build-node: ubuntu1604-builder-2c-2g
 
     mvn-settings: opencolorio-settings
     make-opts: '-j8'
