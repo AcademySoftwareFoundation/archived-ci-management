@@ -22,7 +22,7 @@
         git remote add zxiiro https://github.com/zxiiro/openvdb.git
         git fetch zxiiro
         git cherry-pick zxiiro/paths
-        repo="https://nexus.aswf.io/service/local/repositories/openexr-1019"
+        repo="https://nexus.aswf.io/service/local/repositories/openexr-1023"
         wget "$repo/content/io/aswf/openexr/ilmbase/2.2.0/ilmbase-2.2.0-linux-amd64.tar.xz"
         wget "$repo/content/io/aswf/openexr/openexr/2.2.0/openexr-2.2.0-linux-amd64.tar.xz"
         sudo tar -xvf ilmbase-2.2.0-linux-amd64.tar.xz -C /usr/local
