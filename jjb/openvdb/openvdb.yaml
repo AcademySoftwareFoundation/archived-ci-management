@@ -16,6 +16,7 @@
         -D USE_GLFW3=ON
         -D ILMBASE_NAMESPACE_VERSIONING=OFF
         -D OPENEXR_NAMESPACE_VERSIONING=OFF
+        -D OPENVDB_BUILD_PYTHON_MODULE=OFF
     make-opts: '-j8'
     pre-build: |
         #!/bin/bash
