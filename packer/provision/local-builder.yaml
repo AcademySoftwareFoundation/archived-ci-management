@@ -1,11 +1,16 @@
 ---
-- import_playbook: ../common-packer/provision/baseline.yaml
+#- import_playbook: ../common-packer/provision/baseline.yaml
 
 - hosts: all
   become_user: root
   become_method: sudo
 
   tasks:
+    - name: Fail build
+      yum:
+        name: git
+        state: present
+
     - name: Install OpenVDB required packages
       apt:
         name:
