@@ -32,7 +32,7 @@
 - project:
     name: openvdb-views
     views:
-      - common-view
+      - project-view
 
     project-name: openvdb
 

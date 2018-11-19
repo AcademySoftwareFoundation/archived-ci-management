@@ -26,6 +26,6 @@
 - project:
     name: opencolorio-views
     views:
-      - common-view
+      - project-view
 
     project-name: opencolorio
