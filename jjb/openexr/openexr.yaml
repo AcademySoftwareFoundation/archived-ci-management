@@ -169,6 +169,6 @@
 - project:
     name: openexr-views
     views:
-      - common-view
+      - project-view
 
     project-name: openexr
