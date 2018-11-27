@@ -144,6 +144,9 @@
           choosing-strategy: default
           jenkins-ssh-credential: '{jenkins-ssh-credential}'
 
+    triggers:
+      - timed: '@daily'
+
     wrappers:
       - lf-infra-wrappers:
           build-timeout: '{build-timeout}'
