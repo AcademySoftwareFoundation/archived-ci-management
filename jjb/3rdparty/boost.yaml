@@ -1,0 +1,95 @@
+---
+- project:
+    name: boost
+    jobs:
+      - 'boost-build'
+
+    project: ci-management
+    project-name: ci-management
+    build-node: centos7-builder-vfx-2018-2c-1g
+
+    make-opts: '-j8'
+    pre-build: |
+        #!/bin/bash
+        MAJOR_VERSION="1"
+        MINOR_VERSION="61"
+        PATCH_VERSION="0"
+        echo "${{MAJOR_VERSION}}.${{MINOR_VERSION}}.${{PATCH_VERSION}}" > /tmp/artifact_version
+        mkdir $WORKSPACE/target
+        wget https://sourceforge.net/projects/boost/files/boost/1.61.0/boost_1_61_0.tar.bz2/download -O $WORKSPACE/target/boost_1_61_0.tar.bz2
+        cd $WORKSPACE/target && tar xf boost_1_61_0.tar.bz2
+
+    nexus-group-id: io.aswf.3rdparty
+    staging-profile-id: 126694cb53ec54
+
+- project:
+    name: 3rdparty-views
+    views:
+      - project-view
+
+    project-name: boost
+
+- job-template:
+    name: 'boost-build'
+    id: boost-build
+
+    ######################
+    # Default parameters #
+    ######################
+
+    branch: master
+    build-days-to-keep: 7
+    build-dir: '$WORKSPACE/target'
+    build-timeout: 15
+    cmake-opts: ''
+    git-url: '$GIT_URL/$PROJECT'
+    install-prefix: '$BUILD_DIR/output'
+    make-opts: ''
+    pre-build: ''
+    stream: master
+    submodule-recursive: true
+    submodule-timeout: 10
+
+    # github_included_regions MUST match gerrit_trigger_file_paths
+    github_included_regions:
+      - '.*'
+
+    #####################
+    # Job Configuration #
+    #####################
+
+    project-type: freestyle
+    node: '{build-node}'
+    concurrent: true
+
+    properties:
+      - lf-infra-properties:
+          build-days-to-keep: '{build-days-to-keep}'
+      - github:
+          url: '{git-url}/{github-org}/{project}'
+
+    parameters:
+      - lf-infra-parameters:
+          project: '{project}'
+          branch: '{branch}'
+          stream: '{stream}'
+          lftools-version: '{lftools-version}'
+      - lf-cmake-parameters:
+          build-dir: '{build-dir}'
+          cmake-opts: '{cmake-opts}'
+          install-prefix: '{install-prefix}'
+          make-opts: '{make-opts}'
+
+    wrappers:
+      - lf-infra-wrappers:
+          build-timeout: '{build-timeout}'
+          jenkins-ssh-credential: '{jenkins-ssh-credential}'
+
+    builders:
+      - shell: 'pip install --user lftools'
+      - shell: '{pre-build}'
+      - shell: 'source /opt/rh/devtoolset-6/enable && cd {build-dir}/boost_1_61_0 && ./bootstrap.sh --prefix={install-prefix}'
+      - shell: 'source /opt/rh/devtoolset-6/enable && cd {build-dir}/boost_1_61_0 && ./b2 toolset=gcc cxxflags="-std=c++14" linkflags="-std=c++14" install'
+
+    publishers:
+      - lf-infra-publish
