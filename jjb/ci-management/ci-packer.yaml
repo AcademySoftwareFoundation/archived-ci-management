@@ -23,6 +23,19 @@
       - ubuntu-16.04
 
 - project:
+    name: packer-builder-vfx-2018-jobs
+    jobs:
+      - github-packer-merge
+
+    project: ci-management
+    project-name: ci-management
+    build-node: centos7-builder-2c-1g
+
+    templates: builder-vfx-2018
+    platforms:
+      - centos-7
+
+- project:
     name: packer-win-builder-jobs
     jobs:
       - github-packer-merge

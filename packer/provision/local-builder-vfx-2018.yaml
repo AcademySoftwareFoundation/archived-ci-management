@@ -1,0 +1,22 @@
+---
+- import_playbook: ../common-packer/provision/baseline.yaml
+
+- hosts: all
+  become_user: root
+  become_method: sudo
+
+  tasks:
+    - name: Install devtoolset Repo
+      yum:
+        name:
+          - centos-release-scl
+        state: present
+      when: ansible_os_family == 'RedHat'
+      become: true
+    - name: Install devtoolset-6
+      yum:
+        name:
+          - devtoolset-6
+        state: present
+      when: ansible_os_family == 'RedHat'
+      become: true
