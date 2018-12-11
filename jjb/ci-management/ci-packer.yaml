@@ -36,6 +36,19 @@
       - centos-7
 
 - project:
+    name: packer-builder-docker-jobs
+    jobs:
+      - github-packer-merge
+
+    project: ci-management
+    project-name: ci-management
+    build-node: centos7-builder-2c-1g
+
+    templates: docker
+    platforms:
+      - centos-7
+
+- project:
     name: packer-win-builder-jobs
     jobs:
       - github-packer-merge
