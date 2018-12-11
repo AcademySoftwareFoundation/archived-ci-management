@@ -90,6 +90,6 @@
       - shell: '{pre-build}'
       - shell: 'source /opt/rh/devtoolset-6/enable && cd {build-dir}/boost_1_61_0 && ./bootstrap.sh --prefix={install-prefix}'
       - shell: 'source /opt/rh/devtoolset-6/enable && cd {build-dir}/boost_1_61_0 && ./b2 toolset=gcc cxxflags="-std=c++14" linkflags="-std=c++14" install'
-
+      - shell: 'cd {install-prefix} && tar -cvjSf boost-1.61.0-vfx-2018.tar.bz2 *'
     publishers:
       - lf-infra-publish
