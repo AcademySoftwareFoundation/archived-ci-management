@@ -42,11 +42,11 @@
 
     project: ci-management
     project-name: ci-management
-    build-node: centos7-builder-2c-1g
+    build-node: ubuntu1604-builder-2c-2g
 
     templates: docker
     platforms:
-      - centos-7
+      - ubuntu-16.04
 
 - project:
     name: packer-win-builder-jobs
