@@ -1,18 +1,17 @@
 ---
 - project:
-    name: boost-docker
+    name: 3rdparty-vfx2018
     jobs:
-      - 'boost-docker-build'
+      - '3rdparty-boost-stage-{stream}'
     project: ci-management
     project-name: ci-management
     build-node: ubuntu1604-builder-docker-2c-2g
-
+    stream: vfx2018
     nexus-group-id: io.aswf.3rdparty
     staging-profile-id: 126694cb53ec54
 
 - job-template:
-    name: 'boost-docker-build'
-    id: boost-docker-build
+    name: '3rdparty-boost-stage-{stream}'
 
     ######################
     # Default parameters #
