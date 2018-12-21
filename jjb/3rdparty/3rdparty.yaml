@@ -1,17 +1,26 @@
 ---
 - project:
-    name: 3rdparty-vfx2018
+    name: 3rdparty-boost-vfx2018
     jobs:
-      - '3rdparty-boost-stage-{stream}'
+      - '3rdparty-{3rdparty-project}-stage-{stream}'
     project: ci-management
     project-name: ci-management
     build-node: ubuntu1604-builder-docker-2c-2g
     stream: vfx2018
-    nexus-group-id: io.aswf.3rdparty
-    staging-profile-id: 126694cb53ec54
+    3rdparty-project: boost
+
+- project:
+    name: 3rdparty-tbb-vfx2018
+    jobs:
+      - '3rdparty-{3rdparty-project}-stage-{stream}'
+    project: ci-management
+    project-name: ci-management
+    build-node: ubuntu1604-builder-docker-2c-2g
+    stream: vfx2018
+    3rdparty-project: tbb
 
 - job-template:
-    name: '3rdparty-boost-stage-{stream}'
+    name: '3rdparty-{3rdparty-project}-stage-{stream}'
 
     ######################
     # Default parameters #
@@ -80,8 +89,8 @@
 
     builders:
       - shell: 'pip install --user lftools'
-      - shell: 'cd jjb/3rdparty/boost && docker build -t boost-builder .'
+      - shell: 'cd jjb/3rdparty/{3rdparty-project} && docker build -t {3rdparty-project}-builder .'
       - shell: 'mkdir -p $WORKSPACE/dist'
-      - shell: 'docker run --name boost-builder --rm -v $WORKSPACE/dist:/mnt/dist boost-builder'
+      - shell: 'docker run --name {3rdparty-project}-builder --rm -v $WORKSPACE/dist:/mnt/dist {3rdparty-project}-builder'
     publishers:
       - lf-infra-publish
