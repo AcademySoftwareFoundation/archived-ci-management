@@ -11,6 +11,7 @@ PACKAGES = collections.OrderedDict([('boost', []),
                                     ('ilmbase', []),
                                     ('pyilmbase', ['boost', 'ilmbase']),
                                     ('openexr', ['ilmbase'])])
+PACKAGES['all'] = PACKAGES.keys()
 
 PACKAGE_FILES = {}
 
