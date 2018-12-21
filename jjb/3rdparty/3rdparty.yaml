@@ -1,9 +1,9 @@
 ---
 - project:
     name: 3rdparty-boost-vfx2018
-    3rdparty-project: boost
+    3rdparty: boost
     jobs:
-      - '3rdparty-{3rdparty-project}-stage-{stream}'
+      - '3rdparty-{3rdparty}-stage-{stream}'
     project: ci-management
     project-name: ci-management
     build-node: ubuntu1604-builder-docker-2c-2g
@@ -11,9 +11,9 @@
 
 - project:
     name: 3rdparty-tbb-vfx2018
-    3rdparty-project: tbb
+    3rdparty: tbb
     jobs:
-      - '3rdparty-{3rdparty-project}-stage-{stream}'
+      - '3rdparty-{3rdparty}-stage-{stream}'
     project: ci-management
     project-name: ci-management
     build-node: ubuntu1604-builder-docker-2c-2g
@@ -21,9 +21,9 @@
 
 - project:
     name: 3rdparty-ilmbase-vfx2018
-    3rdparty-project: ilmbase
+    3rdparty: ilmbase
     jobs:
-      - '3rdparty-{3rdparty-project}-stage-{stream}'
+      - '3rdparty-{3rdparty}-stage-{stream}'
     project: ci-management
     project-name: ci-management
     build-node: ubuntu1604-builder-docker-2c-2g
@@ -31,9 +31,9 @@
 
 - project:
     name: 3rdparty-openexr-vfx2018
-    3rdparty-project: openexr
+    3rdparty: openexr
     jobs:
-      - '3rdparty-{3rdparty-project}-stage-{stream}'
+      - '3rdparty-{3rdparty}-stage-{stream}'
     project: ci-management
     project-name: ci-management
     build-node: ubuntu1604-builder-docker-2c-2g
@@ -41,16 +41,16 @@
 
 - project:
     name: 3rdparty-pyilmbase-vfx2018
-    3rdparty-project: pyilmbase
+    3rdparty: pyilmbase
     jobs:
-      - '3rdparty-{3rdparty-project}-stage-{stream}'
+      - '3rdparty-{3rdparty}-stage-{stream}'
     project: ci-management
     project-name: ci-management
     build-node: ubuntu1604-builder-docker-2c-2g
     stream: vfx2018
 
 - job-template:
-    name: '3rdparty-{3rdparty-project}-stage-{stream}'
+    name: '3rdparty-{3rdparty}-stage-{stream}'
 
     ######################
     # Default parameters #
@@ -120,8 +120,8 @@
     builders:
       - shell: 'pip install --user lftools'
       - shell: !include-raw-escape: boost/download.sh
-      - shell: 'cd jjb/3rdparty/{3rdparty-project} && docker build -t {3rdparty-project}-builder .'
+      - shell: 'cd jjb/3rdparty/{3rdparty} && docker build -t {3rdparty}-builder .'
       - shell: 'mkdir -p $WORKSPACE/dist'
-      - shell: 'docker run --name {3rdparty-project}-builder --rm -v $WORKSPACE/dist:/mnt/dist {3rdparty-project}-builder'
+      - shell: 'docker run --name {3rdparty}-builder --rm -v $WORKSPACE/dist:/mnt/dist {3rdparty}-builder'
     publishers:
       - lf-infra-publish
