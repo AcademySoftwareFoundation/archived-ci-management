@@ -1,30 +1,35 @@
 FROM centos/devtoolset-6-toolchain-centos7
 
-ENV ASWF_DIR /opt/aswf/vfx2018
-ENV TMP_DIR /tmp/vfx-build
-ENV DOWNLOADS_DIR /tmp/vfx-downloads
+ENV ASWF_BUILD_DIR /tmp/vfx-build
+ENV ASWF_ROOT_DIR /opt/aswf/vfx2018
 
 USER root
 
-RUN mkdir -p $TMP_DIR && \
-    mkdir -p $ASWF_DIR && \
-    mkdir -p $DOWNLOADS_DIR
+RUN mkdir -p $ASWF_BUILD_DIR && \
+    mkdir -p $ASWF_ROOT_DIR
 
-RUN yum install -y wget make
+# Common requirements
+RUN yum install -y make bzip2
 
-RUN wget https://github.com/01org/tbb/archive/2017_U6.tar.gz -O $DOWNLOADS_DIR/tbb_2017_U6.tar.gz
+ADD 2017_U6.tar.gz $ASWF_BUILD_DIR
 
-RUN cd $TMP_DIR &&\
-    tar xf $DOWNLOADS_DIR/tbb_2017_U6.tar.gz &&\
-    cd $TMP_DIR/tbb-2017_U6 &&\
-    mkdir -p $ASWF_DIR/include && cp -R include/* $ASWF_DIR/include/ &&\
-    make && \
-    mkdir -p $ASWF_DIR/lib && cp build/*_release/*.so* $ASWF_DIR/lib &&\
-    make clean && \
+WORKDIR $ASWF_BUILD_DIR/tbb-2017_U6
+
+# Prepare install
+RUN mkdir -p $ASWF_ROOT_DIR/tbb/include &&\
+    mkdir -p $ASWF_ROOT_DIR/tbb/lib &&\
+    cp -R include/* $ASWF_ROOT_DIR/tbb/include/
+
+# Normal build
+RUN make && \
+    cp build/*_release/*.so* $ASWF_ROOT_DIR/tbb/lib
+
+# Community Preview Library with a clean first
+RUN make clean && \
     make tbb_cpf=1 && \
-    mkdir -p $ASWF_DIR/lib && cp build/*_release/*.so* $ASWF_DIR/lib
+    cp build/*_release/*.so* $ASWF_ROOT_DIR/tbb/lib
 
 # Generating the tarball as part of running the image.
 # Needs "-v `pwd`:/mnt/dist" while running
-ENTRYPOINT cd $ASWF_DIR &&\
-    tar -cvjSf /mnt/dist/tbb-2017.6-vfx-2018.tar.bz2 *
+WORKDIR $ASWF_ROOT_DIR
+ENTRYPOINT tar -cvjSf /mnt/dist/tbb-2017.6-vfx-2018.tar.bz2 tbb

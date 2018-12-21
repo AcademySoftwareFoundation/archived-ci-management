@@ -1,25 +1,27 @@
 FROM centos/devtoolset-6-toolchain-centos7
 
-ENV ASWF_DIR /opt/aswf/vfx2018
-ENV TMP_DIR /tmp/vfx-build
-ENV DOWNLOADS_DIR /tmp/vfx-downloads
+ENV ASWF_BUILD_DIR /tmp/vfx-build
+ENV ASWF_ROOT_DIR /opt/aswf/vfx2018
 
 USER root
 
-RUN mkdir -p $TMP_DIR && \
-    mkdir -p $ASWF_DIR && \
-    mkdir -p $DOWNLOADS_DIR
+RUN mkdir -p $ASWF_BUILD_DIR && \
+    mkdir -p $ASWF_ROOT_DIR
 
-RUN yum install -y wget bzip2 which python-devel bzip2-devel
+# Common requirements
+RUN yum install -y which bzip2
 
-RUN wget https://sourceforge.net/projects/boost/files/boost/1.61.0/boost_1_61_0.tar.bz2/download -O $DOWNLOADS_DIR/boost_1_61_0.tar.bz2
+# Boost build requirements
+RUN yum install -y python-devel bzip2-devel
 
-RUN cd $TMP_DIR &&\
-    tar -jxf $DOWNLOADS_DIR/boost_1_61_0.tar.bz2 &&\
-    cd $TMP_DIR/boost_1_61_0 &&\
-    ./bootstrap.sh \
-        --prefix=$ASWF_DIR &&\
-    ./bjam \
+ADD boost_1_61_0.tar.bz2 $ASWF_BUILD_DIR
+
+WORKDIR $ASWF_BUILD_DIR/boost_1_61_0
+
+RUN ./bootstrap.sh \
+        --prefix=$ASWF_ROOT_DIR/boost
+
+RUN ./bjam \
         variant=release \
         link=shared \
         threading=multi \
@@ -27,7 +29,8 @@ RUN cd $TMP_DIR &&\
         linkflags="-std=c++14" \
         install
 
+
 # Generating the tarball as part of running the image.
 # Needs "-v `pwd`:/mnt/dist" while running
-ENTRYPOINT cd $ASWF_DIR &&\
-    tar -cvjSf /mnt/dist/boost-1.61.0-vfx-2018.tar.bz2 *
+WORKDIR $ASWF_ROOT_DIR
+ENTRYPOINT tar -cvjSf /mnt/dist/boost-1.61.0-vfx-2018.tar.bz2 boost
