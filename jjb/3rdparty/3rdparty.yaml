@@ -2,6 +2,7 @@
 - project:
     name: 3rdparty-boost-vfx2018
     3rdparty: boost
+    download: !include-raw-escape: boost/download.sh
     jobs:
       - '3rdparty-{3rdparty}-stage-{stream}'
     project: ci-management
@@ -12,6 +13,7 @@
 - project:
     name: 3rdparty-tbb-vfx2018
     3rdparty: tbb
+    download: !include-raw-escape: tbb/download.sh
     jobs:
       - '3rdparty-{3rdparty}-stage-{stream}'
     project: ci-management
@@ -22,6 +24,7 @@
 - project:
     name: 3rdparty-ilmbase-vfx2018
     3rdparty: ilmbase
+    download: !include-raw-escape: ilmbase/download.sh
     jobs:
       - '3rdparty-{3rdparty}-stage-{stream}'
     project: ci-management
@@ -32,6 +35,7 @@
 - project:
     name: 3rdparty-openexr-vfx2018
     3rdparty: openexr
+    download: !include-raw-escape: openexr/download.sh
     jobs:
       - '3rdparty-{3rdparty}-stage-{stream}'
     project: ci-management
@@ -42,6 +46,7 @@
 - project:
     name: 3rdparty-pyilmbase-vfx2018
     3rdparty: pyilmbase
+    download: !include-raw-escape: pyilmbase/download.sh
     jobs:
       - '3rdparty-{3rdparty}-stage-{stream}'
     project: ci-management
@@ -63,7 +68,7 @@
     cmake-opts: ''
     install-prefix: '$BUILD_DIR/output'
     make-opts: ''
-    pre-build: ''
+    download: ''
     stream: master
     submodule-recursive: true
     submodule-timeout: 10
@@ -119,7 +124,7 @@
 
     builders:
       - shell: 'pip install --user lftools'
-      - shell: !include-raw-escape: boost/download.sh
+      - shell: '{download}'
       - shell: 'cd jjb/3rdparty/{3rdparty} && docker build -t {3rdparty}-builder .'
       - shell: 'mkdir -p $WORKSPACE/dist'
       - shell: 'docker run --name {3rdparty}-builder --rm -v $WORKSPACE/dist:/mnt/dist {3rdparty}-builder'
