@@ -12,6 +12,20 @@
     jjb-version: 2.8.0
 
 - project:
+    name: builder-openstack
+    jobs:
+      - gerrit-openstack-cron
+
+    project: ci-management
+    project-name: ci-management
+    build-node: centos7-builder-2c-1g
+
+    jenkins-urls: >
+        https://jenkins.aswf.io
+        https://jenkins.aswf.io/sandbox
+    openstack-cloud: vex
+
+- project:
     name: ci-views
     views:
       - project-view
