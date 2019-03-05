@@ -114,7 +114,7 @@
           jenkins-ssh-credential: '{jenkins-ssh-credential}'
 
     builders:
-      - shell: !include-raw-escape: ../global-jjb/shell/lftools-install.sh
+      - lf-infra-pre-build
       - lf-provide-maven-settings:
           global-settings-file: '{mvn-global-settings}'
           settings-file: '{mvn-settings}'
