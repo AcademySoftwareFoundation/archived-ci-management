@@ -2,7 +2,8 @@
 - project:
     name: openvdb
     jobs:
-      - 'github-cmake-verify'
+      - 'github-cmake-verify':
+          disable-job: true
       - 'openvdb-cmake-stage'
 
     stream: master
